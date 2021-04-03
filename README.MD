@@ -9,4 +9,4 @@ To run:
 - Run your python virtual environment using `source /path/to/env_name/bin/activate`.
 - Install only the required packages (and the required versions of the required packages) using `pip install -r requirements.txt`.
 - Run the code using `python main.py`.
-- Note:
+
