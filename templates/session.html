@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Session</title>
+    <!-- gets rid of the favicon not found 404 error.-->
+    <link rel="shortcut icon" href="#" /> 
+</head>
+<body>
+    <p>Hello</p>
+
+    <h3 style='color: #ccc;font-size: 30px;'>No message yet..</h3>
+    <div class="message_holder"></div>
+
+    <form action="" method="POST">
+      <input type="text" class="username" placeholder="User Name"/>
+      <input type="text" class="message" placeholder="Messages"/>
+      <input type="submit"/>
+	</form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+
+    <!-- document.domain is the IP address of the computer you are working on. location.port is the port.-->
+    <script type="text/javascript">
+    	console.log("at start of script");
+    	var socket = io.connect();//io.connect('http://' + document.domain + ':' + location.port); // changed to https to work with ngrok, still doesnt work tho.
+    	console.log("connected");
+
+    	socket.on( 'connect', function() {
+		  socket.emit( 'my event', {
+		    data: 'User Connected'
+		  })
+		  var form = $( 'form' ).on( 'submit', function( e ) {
+		    e.preventDefault()
+		    let user_name = $( 'input.username' ).val()
+		    let user_input = $( 'input.message' ).val()
+		    socket.emit( 'my event', {
+		      user_name : user_name,
+		      message : user_input
+		    })
+		    $( 'input.message' ).val( '' ).focus()
+		  })
+		})
+
+		socket.on( 'my response', function( msg ) {
+		  console.log( msg )
+		  if( typeof msg.user_name !== 'undefined' ) {
+		    $( 'h3' ).remove()
+		    $( 'div.message_holder' ).append('<div><b style="color:             #000">'+msg.user_name+'</b>'+msg.message+'</div>' )
+		  }
+		})
+
+    </script>
+</body>
+</html>
+
+<!-- Note: Had to uninstall wsgi to get this to work. -->
