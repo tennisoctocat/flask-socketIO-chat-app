@@ -2,6 +2,7 @@
 Created on Friday April 3, 2021 by Cynthia Hom
 
 Created using this [tutorial](https://codeburst.io/building-your-first-chat-application-using-flask-in-7-minutes-f98de4adfa5d)
+Used this [article](https://blog.miguelgrinberg.com/post/running-your-flask-application-over-https) to run the application over https.
 
 To run: 
 - Download this code.
